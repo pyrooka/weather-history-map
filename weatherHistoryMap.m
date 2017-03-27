@@ -185,13 +185,14 @@ function [y, x] = getStationCoordinates(station)
   y = 0;
   x = 0;
   # Cut the letter, replace the space to point then convert to number.
+  # DDMM to deg.
   y = station{3};
   x = station{4};
-  y = y(1:length(y)-1);
-  x = x(1:length(x)-1);
-  y = str2num(strrep(y, ' ', '.'));
-  x = str2num(strrep(x, ' ', '.'));
-  return
+  yCell = strsplit(y(1:length(y)-1), ' ');
+  xCell = strsplit(x(1:length(x)-1), ' ');
+  y = str2num(yCell{1,1}) + str2num(yCell{1,2}) / 60;
+  x = str2num(xCell{1,1}) + str2num(xCell{1,2}) / 60;
+  return;
 end
 
 
